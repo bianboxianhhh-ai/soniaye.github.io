@@ -85,21 +85,888 @@
       </article>
     </dialog>
 
-    <dialog class="paper-dialog" id="boothDialog">
-      <button class="dialog-close" aria-label="关闭">×</button>
-      <article class="album-page booth-album-page">
-        <p class="page-kicker">JIJI'S PHOTO BOOTH BOOK</p><h2>大头贴相册</h2>
-        <div class="booth-pages">
-          <button class="booth-nav previous" aria-label="上一张">←</button>
-          <figure class="booth-page active"><img src="images/datoutie%205.jpg" alt="在马德里的大头贴" /><figcaption>在马德里 · 2026.06.08</figcaption></figure>
-          <figure class="booth-page"><img src="images/datoutie%204.jpg" alt="福州第一张大头贴" /><figcaption>福州第一张大头贴 · 2026.06.23</figcaption></figure>
-          <figure class="booth-page"><img src="images/datoutie%203.jpg" alt="在福州的大头贴" /><figcaption>在福州 · 2026.06.24</figcaption></figure>
-          <figure class="booth-page"><img src="images/datoutie%202.jpg" alt="在漳州的大头贴" /><figcaption>在漳州 · 2026.06.25</figcaption></figure>
-          <figure class="booth-page"><img src="images/datoutie%201.jpg" alt="在厦门的大头贴" /><figcaption>在厦门 · 2026.06.27</figcaption></figure>
-          <button class="booth-nav next" aria-label="下一张">→</button><p class="booth-count">1 / 5</p>
-        </div>
-      </article>
-    </dialog>
+    <!-- ================================
+     JIJI'S PHOTO BOOTH ALBUM
+================================ -->
+
+<style>
+/* ===== 相册封面 ===== */
+
+.album-cover-button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.album-cover {
+  position: relative;
+  width: 260px;
+  height: 340px;
+  padding: 18px;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+    135deg,
+    #f3e6d0,
+    #e5ceb0
+  );
+
+  border-radius: 5px 12px 12px 5px;
+
+  box-shadow:
+    8px 12px 25px rgba(50, 35, 20, 0.18),
+    inset 0 0 0 2px rgba(255,255,255,0.35);
+
+  transform: rotate(-3deg);
+
+  transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease;
+
+  overflow: hidden;
+}
+
+/* 鼠标放上去 */
+
+.album-cover-button:hover .album-cover {
+  transform:
+    rotate(-1deg)
+    translateY(-8px)
+    rotateY(-5deg);
+
+  box-shadow:
+    14px 22px 35px rgba(50, 35, 20, 0.28),
+    inset 0 0 0 2px rgba(255,255,255,0.45);
+}
+
+/* 左侧装订 */
+
+.album-binding {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 17px;
+  height: 100%;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #c8a77d 0px,
+      #c8a77d 8px,
+      #ad8b61 9px,
+      #ad8b61 12px
+    );
+
+  box-shadow:
+    inset -2px 0 rgba(60,40,20,0.15);
+}
+
+/* 封面照片 */
+
+.album-photo {
+  position: relative;
+
+  margin-left: 12px;
+
+  width: calc(100% - 24px);
+  height: 175px;
+
+  padding: 8px;
+
+  box-sizing: border-box;
+
+  background: #fff;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.15);
+
+  transform: rotate(2deg);
+
+  z-index: 2;
+}
+
+.album-photo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* 相册标题 */
+
+.album-title {
+  position: relative;
+
+  margin-top: 28px;
+  margin-left: 14px;
+
+  text-align: center;
+
+  color: #435766;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  letter-spacing: 2px;
+
+  z-index: 2;
+}
+
+.album-title span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 11px;
+
+  letter-spacing: 4px;
+}
+
+.album-title strong {
+  display: block;
+
+  font-size: 27px;
+
+  line-height: 0.95;
+
+  font-weight: 600;
+}
+
+.album-title small {
+  display: block;
+
+  margin-top: 12px;
+
+  font-size: 8px;
+
+  letter-spacing: 3px;
+}
+
+/* 爱心 */
+
+.album-decoration {
+  position: absolute;
+
+  right: 18px;
+  bottom: 14px;
+
+  font-size: 25px;
+
+  color: #b56f67;
+
+  transform: rotate(10deg);
+}
+
+/* 纸张纹理 */
+
+.album-cover::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.15;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(80,50,30,0.08) 4px
+    );
+}
+
+
+/* =================================
+   相册弹窗
+================================= */
+
+.paper-dialog {
+  width: min(900px, calc(100% - 30px));
+  max-height: 90vh;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  overflow: visible;
+}
+
+/* 背景 */
+
+.paper-dialog::backdrop {
+  background: rgba(25, 24, 21, 0.68);
+
+  backdrop-filter: blur(5px);
+}
+
+/* 相册页面 */
+
+.album-page {
+  position: relative;
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  padding: 45px 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7eedf,
+      #eee1cc
+    );
+
+  border-radius: 5px;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,0.35);
+
+  color: #403b36;
+
+  text-align: center;
+}
+
+/* 小标题 */
+
+.page-kicker {
+  margin: 0 0 8px;
+
+  font-family: Georgia, serif;
+
+  font-size: 11px;
+
+  letter-spacing: 3px;
+
+  color: #8a7762;
+}
+
+/* 大标题 */
+
+.album-page h2 {
+  margin: 0 0 30px;
+
+  font-family: Georgia, serif;
+
+  font-size: 32px;
+
+  font-weight: 500;
+
+  color: #465b68;
+}
+
+
+/* =================================
+   大头贴区域
+================================= */
+
+.booth-pages {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 430px;
+}
+
+/* 大头贴 */
+
+.booth-page {
+  display: none;
+
+  margin: 0;
+
+  padding: 15px;
+
+  width: min(420px, 70%);
+
+  background: #fff;
+
+  box-shadow:
+    0 10px 25px rgba(50,40,30,0.18);
+
+  transform: rotate(-1deg);
+
+  animation: photoAppear 0.35s ease;
+}
+
+.booth-page.active {
+  display: block;
+}
+
+.booth-page img {
+  display: block;
+
+  width: 100%;
+
+  height: 350px;
+
+  object-fit: contain;
+
+  background: #eee;
+}
+
+/* 图片文字 */
+
+.booth-page figcaption {
+  padding-top: 12px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 14px;
+
+  color: #665b50;
+}
+
+/* 图片出现动画 */
+
+@keyframes photoAppear {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(10px)
+      rotate(-3deg);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      rotate(-1deg);
+  }
+
+}
+
+
+/* =================================
+   左右按钮
+================================= */
+
+.booth-nav {
+  position: absolute;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 45px;
+  height: 45px;
+
+  border: 1px solid #cdbda7;
+
+  border-radius: 50%;
+
+  background: #f7eedf;
+
+  color: #66584c;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.booth-nav:hover {
+  background: #e8d8c0;
+
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+.booth-nav.previous {
+  left: 20px;
+}
+
+.booth-nav.next {
+  right: 20px;
+}
+
+
+/* =================================
+   计数
+================================= */
+
+.booth-count {
+  position: absolute;
+
+  bottom: -5px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  margin: 0;
+
+  font-family: Georgia, serif;
+
+  font-size: 13px;
+
+  letter-spacing: 2px;
+
+  color: #8a7762;
+}
+
+
+/* =================================
+   关闭按钮
+================================= */
+
+.dialog-close {
+  position: absolute;
+
+  right: 12px;
+  top: 10px;
+
+  width: 38px;
+  height: 38px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #66584c;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  transition:
+    transform 0.2s ease;
+}
+
+.dialog-close:hover {
+  transform: rotate(10deg) scale(1.1);
+}
+
+
+/* =================================
+   手机端
+================================= */
+
+@media (max-width: 600px) {
+
+  .album-cover {
+    width: 210px;
+    height: 275px;
+  }
+
+  .album-photo {
+    height: 135px;
+  }
+
+  .album-title strong {
+    font-size: 22px;
+  }
+
+  .album-page {
+    padding: 35px 15px;
+  }
+
+  .album-page h2 {
+    font-size: 25px;
+  }
+
+  .booth-pages {
+    min-height: 360px;
+  }
+
+  .booth-page {
+    width: 68%;
+    padding: 10px;
+  }
+
+  .booth-page img {
+    height: 280px;
+  }
+
+  .booth-nav {
+    width: 38px;
+    height: 38px;
+  }
+
+  .booth-nav.previous {
+    left: 0;
+  }
+
+  .booth-nav.next {
+    right: 0;
+  }
+
+}
+</style>
+
+
+<!-- =================================
+     相册封面
+================================= -->
+
+<button
+  class="album-cover-button"
+  id="openBoothAlbum"
+  aria-label="打开大头贴相册">
+
+  <div class="album-cover">
+
+    <div class="album-binding"></div>
+
+    <div class="album-photo">
+      <img
+        src="images/datoutie%205.jpg"
+        alt="大头贴照片">
+    </div>
+
+    <div class="album-title">
+
+      <span>JIJI'S</span>
+
+      <strong>
+        PHOTO<br>
+        BOOTH
+      </strong>
+
+      <small>
+        MEMORIES · 2026
+      </small>
+
+    </div>
+
+    <div class="album-decoration">
+      ♡
+    </div>
+
+  </div>
+
+</button>
+
+
+<!-- =================================
+     相册弹窗
+================================= -->
+
+<dialog
+  class="paper-dialog"
+  id="boothDialog">
+
+  <button
+    class="dialog-close"
+    aria-label="关闭">
+    ×
+  </button>
+
+
+  <article class="album-page">
+
+    <p class="page-kicker">
+      JIJI'S PHOTO BOOTH BOOK
+    </p >
+
+    <h2>
+      大头贴相册
+    </h2>
+
+
+    <div class="booth-pages">
+
+
+      <!-- 上一张 -->
+
+      <button
+        class="booth-nav previous"
+        aria-label="上一张">
+        ←
+      </button>
+
+
+      <!-- 照片 1 -->
+
+      <figure class="booth-page active">
+
+        <img
+          src="images/datoutie%205.jpg"
+          alt="在马德里的大头贴">
+
+        <figcaption>
+          在马德里 · 2026.06.08
+        </figcaption>
+
+      </figure>
+
+
+      <!-- 照片 2 -->
+
+      <figure class="booth-page">
+
+        <img
+          src="images/datoutie%204.jpg"
+          alt="福州第一张大头贴">
+
+        <figcaption>
+          福州第一张大头贴 · 2026.06.23
+        </figcaption>
+
+      </figure>
+
+
+      <!-- 照片 3 -->
+
+      <figure class="booth-page">
+
+        <img
+          src="images/datoutie%203.jpg"
+          alt="在福州的大头贴">
+
+        <figcaption>
+          在福州 · 2026.06.24
+        </figcaption>
+
+      </figure>
+
+
+      <!-- 照片 4 -->
+
+      <figure class="booth-page">
+
+        <img
+          src="images/datoutie%202.jpg"
+          alt="在漳州的大头贴">
+
+        <figcaption>
+          在漳州 · 2026.06.25
+        </figcaption>
+
+      </figure>
+
+
+      <!-- 照片 5 -->
+
+      <figure class="booth-page">
+
+        <img
+          src="images/datoutie%201.jpg"
+          alt="在厦门的大头贴">
+
+        <figcaption>
+          在厦门 · 2026.06.27
+        </figcaption>
+
+      </figure>
+
+
+      <!-- 下一张 -->
+
+      <button
+        class="booth-nav next"
+        aria-label="下一张">
+        →
+      </button>
+
+
+      <!-- 计数 -->
+
+      <p class="booth-count">
+        <span id="boothCurrent">1</span>
+        /
+        <span id="boothTotal">5</span>
+      </p >
+
+    </div>
+
+  </article>
+
+</dialog>
+
+
+<script>
+
+/* =================================
+   打开 / 关闭相册
+================================= */
+
+const albumButton =
+  document.getElementById("openBoothAlbum");
+
+const boothDialog =
+  document.getElementById("boothDialog");
+
+const closeButton =
+  boothDialog.querySelector(".dialog-close");
+
+
+/* 打开 */
+
+albumButton.addEventListener("click", () => {
+
+  boothDialog.showModal();
+
+});
+
+
+/* 关闭 */
+
+closeButton.addEventListener("click", () => {
+
+  boothDialog.close();
+
+});
+
+
+/* 点击黑色背景关闭 */
+
+boothDialog.addEventListener("click", (event) => {
+
+  if (event.target === boothDialog) {
+
+    boothDialog.close();
+
+  }
+
+});
+
+
+/* =================================
+   照片切换
+================================= */
+
+const boothPhotos =
+  document.querySelectorAll(".booth-page");
+
+const previousButton =
+  document.querySelector(".booth-nav.previous");
+
+const nextButton =
+  document.querySelector(".booth-nav.next");
+
+const currentNumber =
+  document.getElementById("boothCurrent");
+
+const totalNumber =
+  document.getElementById("boothTotal");
+
+
+let boothIndex = 0;
+
+
+/* 总数量 */
+
+totalNumber.textContent =
+  boothPhotos.length;
+
+
+/* 显示照片 */
+
+function showBoothPhoto(index) {
+
+  boothPhotos.forEach((photo, i) => {
+
+    photo.classList.toggle(
+      "active",
+      i === index
+    );
+
+  });
+
+  currentNumber.textContent =
+    index + 1;
+
+}
+
+
+/* 上一张 */
+
+previousButton.addEventListener("click", () => {
+
+  boothIndex--;
+
+  if (boothIndex < 0) {
+
+    boothIndex =
+      boothPhotos.length - 1;
+
+  }
+
+  showBoothPhoto(boothIndex);
+
+});
+
+
+/* 下一张 */
+
+nextButton.addEventListener("click", () => {
+
+  boothIndex++;
+
+  if (
+    boothIndex >=
+    boothPhotos.length
+  ) {
+
+    boothIndex = 0;
+
+  }
+
+  showBoothPhoto(boothIndex);
+
+});
+
+
+/* =================================
+   键盘操作
+================================= */
+
+document.addEventListener("keydown", (event) => {
+
+  if (!boothDialog.open) return;
+
+
+  if (event.key === "ArrowLeft") {
+
+    previousButton.click();
+
+  }
+
+
+  if (event.key === "ArrowRight") {
+
+    nextButton.click();
+
+  }
+
+
+  if (event.key === "Escape") {
+
+    boothDialog.close();
+
+  }
+
+});
+
+</script>
 
     <dialog class="paper-dialog" id="timelineDialog">
       <button class="dialog-close" aria-label="关闭">×</button>
