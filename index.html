@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="唧唧家族的桌子：一张可以翻阅回忆的手帐桌面。" />
+    <title>唧唧家族的桌子</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="welcome" id="welcome">
+        <div class="welcome-note">
+          <span class="masking-tape"></span>
+          <p>WELCOME TO</p>
+          <h1>唧唧家族的<br /><em>桌子</em></h1>
+          <p class="welcome-copy">一张放着回忆、贴纸和小小快乐的桌子。</p>
+          <button class="start-button" id="startButton">开始查看桌面 →</button>
+          <span class="welcome-star">★</span><span class="welcome-flower">✿</span>
+        </div>
+      </section>
+
+      <section class="desk" id="desk" hidden aria-label="唧唧家族的桌子">
+        <div class="wall"><div class="window"><span></span><span></span><i>☁</i></div><div class="wall-note">TODAY IS A<br />GOOD DAY ♡</div></div>
+        <div class="desk-surface">
+          <div class="desk-grain grain-one"></div><div class="desk-grain grain-two"></div>
+          <img class="custom-sticker sticker-a" src="images/tiezhi%201.png" alt="自制贴纸一" />
+          <img class="custom-sticker sticker-b" src="images/tiezhi%202.png" alt="自制贴纸二" />
+          <span class="loose-sticker star-sticker">★</span><span class="loose-sticker heart-sticker">♥</span><span class="loose-sticker flower-sticker">✿</span>
+
+          <button class="desk-object diary-book" data-dialog="diaryDialog" aria-label="打开纪念日记">
+            <span class="book-tape"></span><span class="book-sticker">♡</span><small>JIJI'S</small><strong>纪念<br />日记</strong><em>click me</em>
+          </button>
+          <button class="desk-object photo-book" data-dialog="photoDialog" aria-label="打开大头贴相册">
+            <span class="photo-strip">▦</span><small>PHOTO</small><strong>大头贴<br />相册</strong><em>2026</em>
+          </button>
+          <button class="desk-object booth-book" data-dialog="boothDialog" aria-label="打开大头贴相册">
+            <span class="booth-strip">▦</span><small>PHOTO BOOTH</small><strong>大头贴<br />相册</strong><em>click me</em>
+          </button>
+          <button class="desk-object timeline-paper" data-dialog="timelineDialog" aria-label="打开时光轴">
+            <span class="paper-clip">⌇</span><small>OUR LITTLE</small><strong>时光轴</strong><i>2025 — ∞</i><em>✦</em>
+          </button>
+
+          <div class="desk-tools" aria-hidden="true">
+            <span class="tool coffee">☕</span><span class="tool camera">📷</span><span class="tool cake">🍰</span><span class="tool cookie">🍪</span><span class="tool ramen">🍜</span>
+            <span class="pen pen-yellow"></span><span class="pen pen-green"></span><span class="washi washi-one"></span><span class="washi washi-two"></span>
+          </div>
+          <button class="travel-tag" id="travelTag">✈ 旅行小口袋</button>
+          <div class="travel-pocket" id="travelPocket" hidden><button class="close-pocket" aria-label="收起旅行口袋">×</button><span>马德里</span><span>福州</span><span>漳州</span><span>厦门</span><span>哈尔滨</span><span>沈阳</span><span>大连</span><p>把路上的风和笑声，都收进口袋里。</p></div>
+          <p class="desk-hint">点击桌上的本子或纸张，翻开回忆</p>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="paper-dialog" id="diaryDialog">
+      <button class="dialog-close" aria-label="关闭">×</button>
+      <article class="diary-page scroll-paper">
+        <p class="page-kicker">JIJI'S MEMORY DIARY</p><h2>纪念日记</h2>
+        <section class="diary-entry yellow"><time>2025.07.09</time><h3>第一次见面</h3><p>一起吃了一碗面，还吃了蛋糕，其实两个都不是很好吃。后来一起去了洗浴中心玩。</p><span>♡</span></section>
+        <section class="diary-entry green"><time>2026.06.06</time><h3>夏天的开始</h3><p>我们一起去了西班牙马德里玩，旅行的夏天从这里开始。</p><span>☀</span></section>
+        <section class="diary-entry yellow"><time>2026.06.22</time><h3>回国啦</h3><p>一起去旅行，第一站是福州。</p><span>✈</span></section>
+        <section class="diary-entry green"><time>2026.06.25</time><h3>在漳州</h3><p>一起去了漳州，但是天气并不是很好呢。</p><span>☁</span></section>
+        <section class="diary-entry yellow"><time>2026.06.27</time><h3>出发去厦门</h3><p>其实并没有玩很多东西，实际目的是坐飞机。</p><span>⌁</span></section>
+        <section class="diary-entry green"><time>2026.06.29</time><h3>在哈尔滨啦</h3><p>旅行又来到了新的城市。</p><span>❄</span></section>
+        <section class="diary-entry yellow"><time>2026.07.02</time><h3>出现在沈阳</h3><p>把这一天也好好收进旅行日记。</p><span>✦</span></section>
+        <section class="diary-entry green"><time>2026.07.05</time><h3>抵达大连</h3><p>旅行的最后一站。虽然最后的旅行并不完美，但是也是一段美好的回忆。</p><span>♡</span></section>
+      </article>
+    </dialog>
+
+    <dialog class="paper-dialog" id="photoDialog">
+      <button class="dialog-close" aria-label="关闭">×</button>
+      <article class="album-page">
+        <p class="page-kicker">OUR LITTLE PHOTO ALBUM</p><h2>照片相册</h2>
+        <div class="photo-wall">
+          <button class="photo-card" data-image="images/ramen%201.jpg" data-caption="拉面日 · 2025.07.09"><img src="images/ramen%201.jpg" alt="拉面日" /><span>拉面日<small>2025.07.09</small></span></button>
+          <button class="photo-card" data-image="images/3%20biaobai20260707.jpg" data-caption="表白 · 2026.07.07"><img src="images/3%20biaobai20260707.jpg" alt="表白" /><span>表白<small>2026.07.07</small></span></button>
+          <button class="photo-card" data-image="images/2%20aiku.jpg" data-caption="爱哭的史书闻 · 2026.07.19"><img src="images/2%20aiku.jpg" alt="爱哭的史书闻" /><span>爱哭的史书闻<small>2026.07.19</small></span></button>
+          <button class="photo-card" data-image="images/1%20peipai.jpg" data-caption="一起在咖啡陪拍 · 2026.07.23"><img src="images/1%20peipai.jpg" alt="一起在咖啡陪拍" /><span>咖啡陪拍<small>2026.07.23</small></span></button>
+          <button class="photo-card" data-image="images/cake%201.jpg" data-caption="一起做史鸭文蛋糕 · 2026.07.26"><img src="images/cake%201.jpg" alt="一起做蛋糕" /><span>一起做蛋糕<small>2026.07.26</small></span></button>
+          <button class="photo-card" data-image="images/cookie%201.jpg" data-caption="Cookie · 2026.07.27"><img src="images/cookie%201.jpg" alt="Cookie" /><span>Cookie<small>2026.07.27</small></span></button>
+        </div>
+      </article>
+    </dialog>
+
+    <dialog class="paper-dialog" id="boothDialog">
+      <button class="dialog-close" aria-label="关闭">×</button>
+      <article class="album-page booth-album-page">
+        <p class="page-kicker">JIJI'S PHOTO BOOTH BOOK</p><h2>大头贴相册</h2>
+        <div class="booth-pages">
+          <button class="booth-nav previous" aria-label="上一张">←</button>
+          <figure class="booth-page active"><img src="images/datoutie%205.jpg" alt="在马德里的大头贴" /><figcaption>在马德里 · 2026.06.08</figcaption></figure>
+          <figure class="booth-page"><img src="images/datoutie%204.jpg" alt="福州第一张大头贴" /><figcaption>福州第一张大头贴 · 2026.06.23</figcaption></figure>
+          <figure class="booth-page"><img src="images/datoutie%203.jpg" alt="在福州的大头贴" /><figcaption>在福州 · 2026.06.24</figcaption></figure>
+          <figure class="booth-page"><img src="images/datoutie%202.jpg" alt="在漳州的大头贴" /><figcaption>在漳州 · 2026.06.25</figcaption></figure>
+          <figure class="booth-page"><img src="images/datoutie%201.jpg" alt="在厦门的大头贴" /><figcaption>在厦门 · 2026.06.27</figcaption></figure>
+          <button class="booth-nav next" aria-label="下一张">→</button><p class="booth-count">1 / 5</p>
+        </div>
+      </article>
+    </dialog>
+
+    <dialog class="paper-dialog" id="timelineDialog">
+      <button class="dialog-close" aria-label="关闭">×</button>
+      <article class="timeline-page scroll-paper"><p class="page-kicker">OUR LITTLE TIMELINE</p><h2>时光轴</h2><div class="timeline-list">
+        <article><time>2025<br /><b>07.09</b></time><div><h3>第一次见面</h3><p>一起吃面、吃蛋糕，然后去洗浴中心玩。</p></div></article>
+        <article><time>2026<br /><b>06.06</b></time><div><h3>夏天的开始</h3><p>一起去了西班牙马德里。</p></div></article>
+        <article><time>2026<br /><b>06.22</b></time><div><h3>回国，第一站福州</h3><p>一起去旅行。</p></div></article>
+        <article><time>2026<br /><b>06.25</b></time><div><h3>在漳州</h3><p>天气并不是很好呢。</p></div></article>
+        <article><time>2026<br /><b>06.27</b></time><div><h3>出发去厦门</h3><p>目的其实是坐飞机。</p></div></article>
+        <article><time>2026<br /><b>06.29</b></time><div><h3>在哈尔滨啦</h3><p>旅行继续向北。</p></div></article>
+        <article><time>2026<br /><b>07.02</b></time><div><h3>出现在沈阳</h3><p>又收集到新的城市记忆。</p></div></article>
+        <article><time>2026<br /><b>07.05</b></time><div><h3>抵达大连</h3><p>旅行的最后一站，虽然不完美，却仍是美好的回忆。</p></div></article>
+      </div></article>
+    </dialog>
+
+    <dialog class="lightbox" id="lightbox"><button aria-label="关闭">×</button><figure><img src="" alt="" /><figcaption></figcaption></figure></dialog>
+    <script src="script.js"></script>
+  </body>
+</html>
