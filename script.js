@@ -2,10 +2,12 @@ const startButton = document.querySelector('#startButton');
 const welcome = document.querySelector('#welcome');
 const desk = document.querySelector('#desk');
 
-startButton.addEventListener('click', () => {
-  welcome.hidden = true;
-  desk.hidden = false;
-});
+if (startButton) {
+  startButton.addEventListener('click', () => {
+    welcome.hidden = true;
+    desk.hidden = false;
+  });
+}
 
 document.querySelectorAll('.desk-object').forEach((object) => {
   object.addEventListener('click', () => document.querySelector(`#${object.dataset.dialog}`).showModal());

@@ -9,10 +9,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fix.css" />
+    <link rel="stylesheet" href="layout.css" />
   </head>
   <body>
     <main class="app-shell">
-      <section class="welcome" id="welcome">
+      <section class="welcome" id="welcome" hidden>
         <div class="welcome-note">
           <span class="masking-tape"></span>
           <p>WELCOME TO</p>
@@ -23,8 +25,8 @@
         </div>
       </section>
 
-      <section class="desk" id="desk" hidden aria-label="唧唧家族的桌子">
-        <div class="wall"><div class="window"><span></span><span></span><i>☁</i></div><div class="wall-note">TODAY IS A<br />GOOD DAY ♡</div></div>
+      <section class="desk" id="desk" aria-label="唧唧家族的桌子">
+        <div class="wall"><div class="window"><span></span><span></span><i>☁</i></div><div class="wall-note">唧唧家族的桌子<br /><small>CLICK A MEMORY ♡</small></div></div>
         <div class="desk-surface">
           <div class="desk-grain grain-one"></div><div class="desk-grain grain-two"></div>
           <img class="custom-sticker sticker-a" src="images/tiezhi%201.png" alt="自制贴纸一" />
@@ -34,10 +36,10 @@
           <button class="desk-object diary-book" data-dialog="diaryDialog" aria-label="打开纪念日记">
             <span class="book-tape"></span><span class="book-sticker">♡</span><small>JIJI'S</small><strong>纪念<br />日记</strong><em>click me</em>
           </button>
-          <button class="desk-object photo-book" data-dialog="photoDialog" aria-label="打开相册">
-            <span class="photo-strip">▦</span><small>PHOTO</small><strong>大头贴<br />相册</strong><em>2026</em>
+          <button class="desk-object photo-book" data-dialog="photoDialog" aria-label="打开照片相册">
+            <span class="photo-strip">▦</span><small>PHOTO</small><strong>照片<br />相册</strong><em>2026</em>
           </button>
-          <button class="desk-object booth-book" data-dialog="boothDialog" aria-label="打开相册">
+          <button class="desk-object booth-book" data-dialog="boothDialog" aria-label="打开大头贴相册">
             <span class="booth-strip">▦</span><small>PHOTO BOOTH</small><strong>大头贴<br />相册</strong><em>click me</em>
           </button>
           <button class="desk-object timeline-paper" data-dialog="timelineDialog" aria-label="打开时光轴">

@@ -1,0 +1,24 @@
+/* Keep the photo-booth album and timeline paper apart. */
+@media (min-width: 761px) {
+  .booth-book {
+    left: 47%;
+    top: 49%;
+  }
+
+  .timeline-paper {
+    right: 10%;
+    top: 13%;
+  }
+}
+
+@media (max-width: 760px) {
+  .booth-book {
+    left: 7%;
+    top: 48%;
+  }
+
+  .timeline-paper {
+    right: 6%;
+    top: 61%;
+  }
+}
